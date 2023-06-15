@@ -13,8 +13,11 @@ logger = logging.getLogger(__name__)
 from dotenv import load_dotenv
 load_dotenv()
 openai.api_key = os.getenv('openai_api_key')
+from flask_cors import CORS
+
 
 app = Flask(__name__)
+CORS(app)
 
 def convertToText(audio_file_path):
     """
@@ -70,4 +73,4 @@ def getText():
 
 
 if __name__ == '__main__':
-    app.run(debug=True, port=os.getenv("PORT", default=5000))
+    app.run(debug=True, port=os.getenv("PORT", default=8000))
