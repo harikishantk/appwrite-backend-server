@@ -34,7 +34,10 @@ def convertToText(audio_file_path):
     logger.log(logging.INFO, f'audio_file_path: {audio_file_path}')
     audio_file= open(audio_file_path, "rb")
     logger.log(logging.INFO, f'audio_file: {audio_file}')
-    transcript = openai.Audio.transcribe("whisper-1", audio_file)
+    try:
+        transcript = openai.Audio.transcribe("whisper-1", audio_file)
+    except Exception as e:
+        logger.log(logging.ERROR, f'Exception while converting: {e}')
     logger.log(logging.INFO, f'transcript: {transcript}')
     return transcript
 
@@ -67,4 +70,4 @@ def getText():
 
 
 if __name__ == '__main__':
-    app.run(debug=True, port=os.getenv("PORT", default=8000))
+    app.run(debug=True, port=os.getenv("PORT", default=5000))
