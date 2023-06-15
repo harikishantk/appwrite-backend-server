@@ -30,8 +30,12 @@ def convertToText(audio_file_path):
     transcript : str
         Transcript of the audio file
     """
+    logger.log(logging.INFO, f'convertToText()')
+    logger.log(logging.INFO, f'audio_file_path: {audio_file_path}')
     audio_file= open(audio_file_path, "rb")
+    logger.log(logging.INFO, f'audio_file: {audio_file}')
     transcript = openai.Audio.transcribe("whisper-1", audio_file)
+    logger.log(logging.INFO, f'transcript: {transcript}')
     return transcript
 
 
@@ -53,6 +57,7 @@ def getText():
     try:
         # Save the audio file in the audio-files folder
         audio_file.save(os.path.join('audio-files', audio_file.filename))
+        logger.log(logging.INFO, f'audio_file saved: {audio_file.filename}')
         # Convert the audio file to text
         transcript = convertToText(os.path.join('audio-files', audio_file.filename))
         # Return the transcript
